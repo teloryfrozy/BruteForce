@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
 '''
  ============================================================================
  Name        : password_list_generator.py
@@ -18,7 +21,7 @@ def info_msg():
     print("?l : abcdefghijklmnopqrstuvwxyz")
     print("?L : ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     print("?e : àéè€ù£ç")
-    print("?s : !@#$%^&*()-_+={}[]|\\:;\"',./<>?~` space")
+    print("?s : !@#$%^&*()-_+={}[]|\\:;\"',./<>?~`space")
     print("?a : ?dlLse")
     print("Examples of usage:")
     print("- ?d?e?L?l")
@@ -64,7 +67,9 @@ info_msg()
 list_letters = ask_format()
 while list_letters == False:
     list_letters = ask_format()
- 
+
+print(list_letters)
+
 print("Thank to provide us the format of the password")
 print()
 print("---------------------------------------------------------")
@@ -74,6 +79,9 @@ print("Pay attention, a range is only available for these cases:")
 print("- If all the characters are ?a")
 print("- If all the characters are of the same type")
 
+
+# TODO: 
+# ask name of the file and debug if the file already exist for instance "-1", "-2"
 # TODO
 # handle the fact that the user may now that the password start by a certain string
 # and finish by a list of numbers between 2 and 4
