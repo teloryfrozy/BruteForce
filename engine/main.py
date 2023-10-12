@@ -18,7 +18,7 @@
  ============================================================================
 '''
 
-from test_generator_range import run_generator
+from password_list_generator import run_generator
 
 
 def ask_feature():

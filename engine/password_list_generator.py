@@ -34,7 +34,7 @@ def run_generator(filename:str, list_letters:list):
             n += 1
     
     # --- Start of the algorithm --- #
-    with open(f"{filename}.txt", "w") as f:
+    with open(f"words_lists/{filename}.txt", "w") as f:
         def generate_passwords(n:int, list_letters:list, sequence="", nb_pwd=0):
             """Returns a list of passwords
             
