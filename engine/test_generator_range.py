@@ -1,4 +1,9 @@
+from os import listdir
+
+
+##########################################
 # --- DEFINITION OF GLOBAL VARIABLES --- #
+##########################################
 DIGITS = "0123456789"
 ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 ALPHABET_UPPER = ALPHABET.upper()
@@ -15,8 +20,20 @@ CHARACTERS = {
     "s": SPECIALS
 }
 
-
-def run_generator(filename:str):
+##########################################
+# --- Password list generator engine --- #
+##########################################
+def run_generator(filename:str, list_letters:list):
+    # --- Filename update if required --- #
+    if f"{filename}.txt" in listdir("words_lists"):
+        n = 1
+        f = filename
+        while f"words_lists/{filename}.txt" in listdir("words_lists"):
+            # update of file name if it is not alone
+            filename = f"{f}({n})"
+            n += 1
+    
+    # --- Start of the algorithm --- #
     with open(f"{filename}.txt", "w") as f:
         def generate_passwords(n:int, list_letters:list, sequence="", nb_pwd=0):
             """Returns a list of passwords
@@ -40,12 +57,6 @@ def run_generator(filename:str):
                     nb_pwd = generate_passwords(n - 1, list_letters, sequence + car, nb_pwd)
                 return nb_pwd
         
-        list_letters=['L', 'l', 'l', 'l', 's', 'd', 'd', 'd', 'd']
         nb_pwd = generate_passwords(len(list_letters), list_letters)
-        print(f"The script has generated: {nb_pwd} passwords succesfully!")
-
-print(r"[a-z]")
-print(r"[0-9]")
-run_generator("words_list")
-# ?L?l?l?l?s?d?d?d?d
-# ?l?d?l?d?d?d?d?d
+        print(f"\033[92mThe script has generated: {nb_pwd} passwords succesfully!")
+        print("\033[0m")

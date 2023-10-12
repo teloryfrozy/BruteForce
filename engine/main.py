@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+# TODO
+# handle the fact that the user may now that the password start by a certain string
+# and finish by a list of numbers between 2 and 4
+# examples:
+# pAssWord123
+# pAssWord12
+
 '''
  ============================================================================
  Name        : password_list_generator.py
@@ -10,6 +17,17 @@
  Description : Password list generator inspired by Kali Linux
  ============================================================================
 '''
+
+from test_generator_range import run_generator
+
+
+def ask_feature():
+    """Displays all the available features"""
+    print("What you can do with this tool?")
+    print("... Generate a passwords list")
+    print("... Run an attack to a WiFi network")
+    print("... Find the password of an encrypted file")
+    print("... Find the password of a KeePassXC database")
 
 def info_msg():
     """Displays a banner"""
@@ -26,6 +44,7 @@ def info_msg():
     print("Examples of usage:")
     print("- ?d?e?L?l")
     print("- ?d?d?d?d?d?d?d")
+    print("- ?d+knowPart1?d+knownPart2")
     print("=========================================================")
 
 def wrong_format():
@@ -38,8 +57,7 @@ def wrong_format():
 
 def ask_format():
     print("\n\n")
-    print("Enter the format of the password")
-    pwd_format = input("").strip()
+    pwd_format = input("Enter the format of the password: ").strip()
     
     # --- DEBUGGING --- #
     if pwd_format[-1] == "?":
@@ -49,7 +67,7 @@ def ask_format():
     list_letters = pwd_format.split("?")
     list_letters.pop(0)
 
-    if not (4 <= len(list_letters) <= 32):
+    if not (len(list_letters) <= 32):
         wrong_format()
         return False
     for element in list_letters:
@@ -68,23 +86,26 @@ list_letters = ask_format()
 while list_letters == False:
     list_letters = ask_format()
 
-print(list_letters)
 
-print("Thank to provide us the format of the password")
-print()
+print("\033[92mThank you for providing us with the format of the password\033[0m")
+print("\033[0m") # reset the color
 print("---------------------------------------------------------")
 print("Range of characters")
-print("Minimum: 4, Maximum: 32")
+print("Minimum: 1, Maximum: 32")
 print("Pay attention, a range is only available for these cases:")
 print("- If all the characters are ?a")
 print("- If all the characters are of the same type")
 
 
-# TODO: 
-# ask name of the file and debug if the file already exist for instance "-1", "-2"
+# --- Output file --- #
+print()
+print("---------------------------------------------------------")
+filename = input("Enter the name of the output file: ")
+print(f"This is list_letters = {list_letters}")
+run_generator(filename, list_letters)
+
+
 # TODO
-# handle the fact that the user may now that the password start by a certain string
-# and finish by a list of numbers between 2 and 4
-# examples:
-# pAssWord123
-# pAssWord12
+# Generate the passwords list according to this patterns
+# ?L?l?l?l?s?d?d?d?d
+# ?l?d?l?d?d?d?d?d
