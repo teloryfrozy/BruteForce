@@ -1,0 +1,7 @@
+Clone the repo command using Git:
+git clone -b main https://your_pseudo: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@github.com/teloryfrozy/BruteForce.git
+
+Activate the environment using source BruteForce-venv/bin/activate
+
+also install the requirements using
+pip install -r requirements.txt
