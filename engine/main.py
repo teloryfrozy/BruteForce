@@ -105,7 +105,7 @@ print(f"This is list_letters = {list_letters}")
 run_generator(filename, list_letters)
 
 
-# TODO
+# TODO: run test on a powerful computer
 # Generate the passwords list according to this patterns
 # ?L?l?l?l?s?d?d?d?d
 # ?l?d?l?d?d?d?d?d

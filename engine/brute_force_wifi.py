@@ -1,10 +1,14 @@
-import re
-import subprocess
+from subprocess import check_output, CalledProcessError
+from platform import system
 
 
 try:
+    if system() != "Windows":
+        print("This script only works on Windows")
+        raise OSError
+    
     # Run the 'netsh' command to list Wi-Fi networks
-    networks = subprocess.check_output(['netsh', 'wlan', 'show', 'network'], shell=True, text=True)
+    networks = check_output(['netsh', 'wlan', 'show', 'network'], shell=True, text=True)
     decoded_networks = networks.strip()
 
     wifi_networks = {}
@@ -26,11 +30,14 @@ try:
 
     # Print the dictionary with network information
     print(f"There are {len(wifi_networks.keys())} networks available")
+    list_ssid = []
     for ssid, details in wifi_networks.items():
+        list_ssid.append(ssid)
         print(f"SSID: {ssid}")
         print(f"Authentication: {details.get('Authentication', 'N/A')}")
         print(f"Encryption: {details.get('Encryption', 'N/A')}")
         print()  # Add a blank line for separation
 
-except subprocess.CalledProcessError as e:
+except CalledProcessError as e:
     print("Error: Unable to retrieve Wi-Fi network information.")
+    print(f"The error message is: {e}")
