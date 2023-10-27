@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-# TODO
+###   TODO   ###
 # handle the fact that the user may now that the password start by a certain string
 # and finish by a list of numbers between 2 and 4
 # examples:
 # pAssWord123
 # pAssWord12
+
+## Run test on a powerful computer
+# Generate the passwords list according to this patterns
+# ?L?l?l?l?s?d?d?d?d
+# ?l?d?l?d?d?d?d?d
 
 '''
  ============================================================================
@@ -20,6 +25,20 @@
 
 from password_list_generator import run_generator
 
+class Color:
+    """A reference for used colors"""
+
+    MAGENTA = "\033[35m"
+    RED = "\033[1;31m"
+    BLUE = "\033[1;34m"
+    CYAN = "\033[1;36m"
+    GREEN = "\033[0;32m"
+    RESET = "\033[0;0m"
+
+
+#################################################
+###               USER INTERFACE              ###
+#################################################
 
 def ask_feature():
     """Displays all the available features"""
@@ -80,32 +99,25 @@ def ask_format():
     return list_letters
     
 
-info_msg()
+if __name__ == "__main__":
+    info_msg()
 
-list_letters = ask_format()
-while list_letters == False:
     list_letters = ask_format()
+    while list_letters == False:
+        list_letters = ask_format()
 
 
-print("\033[92mThank you for providing us with the format of the password\033[0m")
-print("\033[0m") # reset the color
-print("---------------------------------------------------------")
-print("Range of characters")
-print("Minimum: 1, Maximum: 32")
-print("Pay attention, a range is only available for these cases:")
-print("- If all the characters are ?a")
-print("- If all the characters are of the same type")
+    print(f"{Color.GREEN}Thank you for providing us with the format of the password{Color.RESET}")
+    print("---------------------------------------------------------")
+    print("Range of characters")
+    print("Minimum: 1, Maximum: 32")
+    print("Pay attention, a range is only available for these cases:")
+    print("- If all the characters are ?a")
+    print("- If all the characters are of the same type")
+    ...
 
-
-# --- Output file --- #
-print()
-print("---------------------------------------------------------")
-filename = input("Enter the name of the output file: ")
-print(f"This is list_letters = {list_letters}")
-run_generator(filename, list_letters)
-
-
-# TODO: run test on a powerful computer
-# Generate the passwords list according to this patterns
-# ?L?l?l?l?s?d?d?d?d
-# ?l?d?l?d?d?d?d?d
+    # --- Output file --- #
+    print()
+    print("---------------------------------------------------------")
+    filename = input("Enter the name of the output file: ")
+    run_generator(filename, list_letters)
