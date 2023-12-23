@@ -1,39 +1,6 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-
-###   TODO   ###
-# handle the fact that the user may now that the password start by a certain string
-# and finish by a list of numbers between 2 and 4
-# examples:
-# pAssWord123
-# pAssWord12
-
-## Run test on a powerful computer
-# Generate the passwords list according to this patterns
-# ?L?l?l?l?s?d?d?d?d
-# ?l?d?l?d?d?d?d?d
-
-'''
- ============================================================================
- Name        : password_list_generator.py
- Author      : Augustin ROLET
- Version     : 1.0
- Copyright   : Copyright Free
- Description : Password list generator inspired by Kali Linux
- ============================================================================
-'''
-
+# Password list generator inspired by Kali Linux
+from colorama import Fore
 from password_list_generator import run_generator
-
-class Color:
-    """A reference for used colors"""
-
-    MAGENTA = "\033[35m"
-    RED = "\033[1;31m"
-    BLUE = "\033[1;34m"
-    CYAN = "\033[1;36m"
-    GREEN = "\033[0;32m"
-    RESET = "\033[0;0m"
 
 
 #################################################
@@ -54,16 +21,16 @@ def info_msg():
     print("Password list generator")
     print()
     print("Character formats available:")
-    print("?d : 0123456789")
-    print("?l : abcdefghijklmnopqrstuvwxyz")
-    print("?L : ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    print("?e : àéè€ù£ç")
-    print("?s : !@#$%^&*()-_+={}[]|\\:;\"',./<>?~`space")
-    print("?a : ?dlLse")
+    print(f"{Fore.YELLOW}?d : {Fore.RESET}0123456789")
+    print(f"{Fore.YELLOW}?l : {Fore.RESET}abcdefghijklmnopqrstuvwxyz")
+    print(f"{Fore.YELLOW}?L : {Fore.RESET}ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    print(f"{Fore.YELLOW}?e : {Fore.RESET}àéè€ù£ç")
+    print(f"{Fore.YELLOW}?s : " + Fore.RESET + "!@#$%^&*()-_+={}[]|\\:;\"',./<>?~`space")
+    print(f"{Fore.YELLOW}?a : {Fore.RESET}?dlLse")
+    print()
     print("Examples of usage:")
     print("- ?d?e?L?l")
     print("- ?d?d?d?d?d?d?d")
-    print("- ?d+knowPart1?d+knownPart2")
     print("=========================================================")
 
 def wrong_format():
@@ -90,7 +57,6 @@ def ask_format():
         wrong_format()
         return False
     for element in list_letters:
-        # TODO: check if the user entered a format like that ?aaaaaaaaaaa?eeeee?d?d
         for letter in element:
             if letter not in "adlLse":
                 wrong_format()
@@ -106,16 +72,8 @@ if __name__ == "__main__":
     while list_letters == False:
         list_letters = ask_format()
 
-
-    print(f"{Color.GREEN}Thank you for providing us with the format of the password{Color.RESET}")
-    print("---------------------------------------------------------")
-    print("Range of characters")
-    print("Minimum: 1, Maximum: 32")
-    print("Pay attention, a range is only available for these cases:")
-    print("- If all the characters are ?a")
-    print("- If all the characters are of the same type")
-    ...
-
+    print(f"{Fore.GREEN}Thank you for providing us with the format of the password{Fore.RESET}")
+    
     # --- Output file --- #
     print()
     print("---------------------------------------------------------")
