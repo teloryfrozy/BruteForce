@@ -1,14 +1,6 @@
-# By Brahim Jarrar ~
-# GITHUB : https://github.com/BrahimJarrar/ ~
-# CopyRight 2019 ~
-"""
-requirements.txt
-comtypes
-pywifi
-"""
-# TODO create a func crack_wifi that takes a list of SSID in args and that runs the attacks showing the final password if it is found
-
-
+# WiFi Scanner by Brahim Jarrar
+# GitHub: https://github.com/BrahimJarrar/
+# © 2019
 
 import argparse
 import os
@@ -16,6 +8,8 @@ import platform
 import time
 from colorama import Fore, Style
 from pywifi import PyWiFi, const, Profile
+from bfw_windows import get_SSIDS
+
 
 try:
     wifi = PyWiFi()
@@ -52,7 +46,7 @@ def main(ssid, password, number):
 
 def pwd(ssid, file):
     number = 0
-    with open(file, 'r', encoding='utf8') as words:
+    with open(os.path.abspath(f"words_lists/{file}.txt"), "r") as words:
         for line in words:
             number += 1
             line = line.strip()
@@ -71,7 +65,7 @@ def menu():
 
     if args.wordlist and args.ssid:
         ssid = args.ssid
-        filee = args.wordlist
+        file = args.wordlist
     elif args.version:
         print(f"\n\n{Fore.CYAN}by Brahim Jarrar\n")
         print(f"{Fore.RED}github", f"{Fore.BLUE}: https://github.com/BrahimJarrar/\n")
@@ -80,14 +74,31 @@ def menu():
     else:
         print(f"{Fore.BLUE}")
         ssid = input("[*] SSID: ")
-        filee = input("[*] Passwords file: ")
+        file = input("[*] Passwords file: ")
 
-    if os.path.exists(filee):
+    if os.path.exists(os.path.abspath(f"words_lists/{file}.txt")):
         os.system("cls" if platform.system().startswith("Win" or "win") else "clear")
         print(f"{Fore.BLUE}[~] Cracking...")
-        pwd(ssid, filee)
+        pwd(ssid, file)
     else:
         print(f"{Fore.RED}[-] No Such File.{Fore.BLUE}")
 
+
+
 if __name__ == "__main__":
+    SSIDs = get_SSIDS()
+    num_networks = len(SSIDs)
+
+    print()
+    print(
+        Fore.RED + "No networks available" + Style.RESET_ALL if num_networks == 0
+        else Fore.CYAN + f"There is 1 network available" + Style.RESET_ALL if num_networks == 1
+        else Fore.CYAN + f"There are {num_networks} networks available" + Style.RESET_ALL
+    )
+
+    print(f"{Fore.RED}Here is the list of all SSIDs found{Fore.RESET}")
+    for ssid in SSIDs:
+        print(f"{Fore.LIGHTYELLOW_EX}{ssid}{Fore.RESET}")
+
+    # start the attack
     menu()

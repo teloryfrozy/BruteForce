@@ -1,4 +1,3 @@
-# Password list generator inspired by Kali Linux
 from colorama import Fore
 from password_list_generator import run_generator
 
