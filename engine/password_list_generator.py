@@ -70,7 +70,6 @@ def run_generator(filename:str, list_letters:list):
                         progress += 1
                         if progress % progress_interval == 0:
                             pbar.update(1)
-                            # print(f"{Fore.CYAN}[PROGRESS] {progress:,} passwords generated{Fore.RESET}")
                         f.write(sequence+"\n")
                         return nb_pwd + 1
                     else:
